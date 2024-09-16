@@ -8,7 +8,8 @@ const getBaseTheme = (mode) => ({
     },
     primary1: '#2A2A2A',
     secondary1: '#AF695C',
-    neutral1: '#EAEAEA'
+    neutral1: '#EAEAEA',
+    neutral2: '#A09E9D'
 
 
   } : {
@@ -18,7 +19,8 @@ const getBaseTheme = (mode) => ({
     },
     primary1: '#FFFFFF',
     secondary1: '#AF695C',
-    neutral1: '#EAEAEA'
+    neutral1: '#EAEAEA',
+    neutral2: '#7D7D7D'
   })
 })
 
@@ -93,6 +95,90 @@ export const getTheme = (mode) => {
       }
     },
     components: {
+      MuiInputBase: {
+        styleOverrides: {
+          root: {
+            backgroundColor: '#FFFFFF',
+            color: baseTheme.background.primary1,
+            borderRadius: '14px !important',
+            width: '75%',
+            maxWidth: '350px',
+            minHeight: '42px',
+            transition: 'all 0.3s ease',
+            '.MuiOutlinedInput-input': {
+              fontSize: '0.9375rem',
+              fontWeight: 400,
+              lineHeight: '1.143rem',
+              padding: '10px 12px 10px 12px',
+              ':-webkit-autofill': {
+                // WebkitBoxShadow: '0 0 0 100px #FFFFFF',
+                WebkitTextFillColor: baseTheme.neutral1
+              }
+            },
+            '& .MuiOutlinedInput-notchedOutline': {
+              border: 'none'
+            },
+            '&.Mui-focused': {
+              backgroundColor: baseTheme.neutral1,
+              width: '100%',
+              '& .MuiOutlinedInput-notchedOutline': {
+                border: `1.5px solid ${baseTheme.background.paper}!important`
+              },
+            },
+            '.MuiPaper-root': {
+              marginTop: '6px'
+            },
+            '&.MuiInputBase-multiline': {
+              padding: 0
+            }
+          }
+        },
+        variants: [
+          {
+            props: { inputType: 'date' },
+            style: {
+              flexDirection: 'row-reverse',
+              gap: '10px'
+            }
+          },
+          {
+            props: { size: 'large' },
+            style: {
+              minHeight: '46px'
+            }
+          }
+        ]
+      },
+      MuiTextField: {
+        styleOverrides: {
+          root: {
+            width: '100%',
+            maxWidth: '350px'
+          }
+        },
+        variants: [
+          {
+            props: { 'extra-variant': 'pointarea' }, 
+            style: {
+              width: '40px',
+              height: '25px',
+              borderRadius: '6px',
+              '& .MuiOutlinedInput-root': {
+                minHeight: '25px',
+                borderRadius: '6px!important',
+                padding: '0',
+                '& input': {
+                  padding: '5px',
+                  textAlign: 'center',
+                  fontSize: '15px',
+                  fontWeight: '500',
+                  lineHeight: '18.29px'
+                }
+              }
+            }
+          }
+        ]
+      },
       MuiButtonBase: {
         defaultProps: {
           disableRipple: true

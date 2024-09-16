@@ -1,6 +1,6 @@
-import { Box, FormControlLabel, IconButton, Link, styled, Switch, useTheme } from '@mui/material'
-import {Link as RouterLink, useLocation} from 'react-router-dom'
-import Menu from '@mui/icons-material/Menu'
+import { Box, FormControlLabel, IconButton, Link, styled, Switch, useTheme } from '@mui/material';
+import { Link as RouterLink, useLocation } from 'react-router-dom';
+import Menu from '@mui/icons-material/Menu';
 
 const MaterialUISwitch = styled(Switch)(({ theme }) => ({
   width: 62,
@@ -67,45 +67,58 @@ const routes = [
   {
     id: 2,
     name: 'Latest News',
-    path: '/latest-news'
+    path: '/latest-news',
   }
-]
+];
 
-export const Header = () => {
+export const Header = ({ isScrolled }) => {
   const theme = useTheme();
   const location = useLocation();
 
   return (
-   <Box display="flex" justifyContent="space-between">
-     <Box display="flex" justifyContent="flex-start" gap={5} alignItems="center">
-      <IconButton
-        sx={{
-           marginRight: 2,
-           padding:0,
-           ":hover": {
-            background: 'none'
-           }
+    <Box 
+      display="flex" 
+      justifyContent="space-between" 
+      position={isScrolled ? 'fixed' : "sticky"}
+      width="100%"
+      top={0} 
+      left={0} 
+      zIndex={999}
+      sx={{
+        height: isScrolled ? '100px' : '40px',
+        background: isScrolled ? theme.palette.background.default : 'transparent',
+        transition: 'background-color 0.3s ease',
+        boxShadow: isScrolled ? "rgba(0, 0, 0, 0.1) 0px 4px 12px" : 'none'
+      }}
+    >
+      <Box display="flex" justifyContent="flex-start" gap={5} alignItems="center" marginLeft={isScrolled ? '50px' : 0}>
+        <IconButton
+          sx={{
+            marginRight: 2,
+            padding: 0,
+            ":hover": {
+              background: 'none'
+            }
           }}
           disableTouchRipple
-      >
-        <Menu sx={{ color: theme.palette.primary1 }}/>
-      </IconButton>
-      {routes.map((route) => (
-        <Link 
-          component={RouterLink} 
-          to={route.path} 
-          key={route.id}
-          active={location.pathname === route.path}
         >
-          {route.name}
-        </Link>
-      ))}
-      
-    </Box>
-    <FormControlLabel
-        control={<MaterialUISwitch sx={{ m: 1 }} defaultChecked />}
+          <Menu sx={{ color: theme.palette.primary1 }}/>
+        </IconButton>
+        {routes.map((route) => (
+          <Link 
+            component={RouterLink} 
+            to={route.path} 
+            key={route.id}
+            active={location.pathname === route.path}
+          >
+            {route.name}
+          </Link>
+        ))}
+      </Box>
+      <FormControlLabel
+        control={<MaterialUISwitch sx={{ m: 1, mr: isScrolled ? '50px' : 0 }} defaultChecked />}
         onChange={theme.handleToggleColorMode}
       />
-   </Box>
-  )
-}
+    </Box>
+  );
+};

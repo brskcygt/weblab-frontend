@@ -19,7 +19,6 @@ function App() {
 
   return (
     <>
-      {/* <Navigate to="/home" replace/> */}
       <ThemeProvider theme={{...theme, handleToggleColorMode, lightMode: theme.palette.mode === 'light'}}>
         <LocalizationProvider
           dateAdapter={AdapterMoment}
@@ -31,6 +30,7 @@ function App() {
               <Route element={<AppLayout />} >
                 <Route element={<Home/>} path="/home"/>
                 <Route element={<LatestNews />} path="latest-news"/>
+                <Route element={<Navigate to="/home" />} path="*" />
               </Route>
             </Routes>
           </Suspense>
